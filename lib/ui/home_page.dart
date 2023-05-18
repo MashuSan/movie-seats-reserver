@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const FavoritePage()),
+                MaterialPageRoute(builder: (context) => FavoritePage()),
               );
             },
           ),
@@ -57,7 +57,7 @@ class _HomePageState extends State<HomePage> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const ReservedMoviePage()),
+                MaterialPageRoute(builder: (context) => ReservedMoviePage()),
               );
             },
           ),
