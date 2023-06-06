@@ -15,7 +15,7 @@ class FavoritePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MovieCardPageBase(getDesired: getFavorites, title: 'Favorites',);
+    return MovieCardPageBase(getDesired: getFavorites, title: 'Favorites', isAdmin: false,);
   }
 
   Future<List<String>> getFavorites(String collectionName) async {

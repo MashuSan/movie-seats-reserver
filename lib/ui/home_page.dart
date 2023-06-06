@@ -6,6 +6,7 @@ import '../models/movie_model.dart';
 import '../models/tv_model.dart';
 import '../utils/movie_api_provider.dart';
 import 'favorite_page.dart';
+import 'message_page.dart';
 import 'movie_detail_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -24,44 +25,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(_currentTab.name),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.movie),
-            onPressed: () {
-              setState(() {
-                _currentTab = MovieItem.movie;
-                _trendingItems = null; // Reset _trendingItems to null when switching tabs
-              });
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.live_tv),
-            onPressed: () {
-              setState(() {
-                _currentTab = MovieItem.tv;
-                _trendingItems = null; // Reset _trendingItems to null when switching tabs
-              });
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.favorite_rounded),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => FavoritePage()),
-              );
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.account_balance_wallet),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ReservedMoviePage()),
-              );
-            },
-          ),
-        ],
+        actions: _buildIcons(),
       ),
       body: FutureBuilder(
         future: _fetchTrendingItems(),
@@ -117,4 +81,55 @@ class _HomePageState extends State<HomePage> {
         ? moviesApiProvider.fetchTrendingMovies()
         : moviesApiProvider.fetchTrendingTv();
   }
+
+  List<Widget> _buildIcons() {
+    return [
+      IconButton(
+        icon: const Icon(Icons.movie),
+        onPressed: () {
+          setState(() {
+            _currentTab = MovieItem.movie;
+            _trendingItems = null; // Reset _trendingItems to null when switching tabs
+          });
+        },
+      ),
+      IconButton(
+        icon: const Icon(Icons.live_tv),
+        onPressed: () {
+          setState(() {
+            _currentTab = MovieItem.tv;
+            _trendingItems = null; // Reset _trendingItems to null when switching tabs
+          });
+        },
+      ),
+      IconButton(
+        icon: const Icon(Icons.favorite_rounded),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => FavoritePage()),
+          );
+        },
+      ),
+      IconButton(
+        icon: const Icon(Icons.account_balance_wallet),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ReservedMoviePage()),
+          );
+        },
+      ),
+      IconButton(
+        icon: const Icon(Icons.message),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => MessagePage())
+          );
+        },
+      ),
+    ];
+  }
+
 }

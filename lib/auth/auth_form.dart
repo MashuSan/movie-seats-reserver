@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../ui/home_page.dart';
+import '../ui/reserved_movies_page_admin.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({Key? key}) : super(key: key);
@@ -16,6 +17,7 @@ class _AuthScreenState extends State<AuthScreen> {
   final _passwordController = TextEditingController();
   final _auth = FirebaseAuth.instance;
   bool _isLogin = true;
+  bool isAdmin = false;
 
   void _submitForm() async {
     if (!_formKey.currentState!.validate()) {
@@ -29,6 +31,8 @@ class _AuthScreenState extends State<AuthScreen> {
           email: _emailController.text.trim(),
           password: _passwordController.text.trim(),
         );
+        isAdmin = _emailController.text.trim() == 'admin@admin.com';
+
       } else {
         userCredential = await _auth.createUserWithEmailAndPassword(
           email: _emailController.text.trim(),
@@ -39,7 +43,7 @@ class _AuthScreenState extends State<AuthScreen> {
       // Navigate to the home page
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => HomePage()),
+        MaterialPageRoute(builder: (context) => isAdmin ? ReservedMoviePageAdmin() : HomePage()),
       );
     } on FirebaseAuthException catch (e) {
       String message = 'An error occurred, please check your credentials!';
